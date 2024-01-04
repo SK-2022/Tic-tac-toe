@@ -25,6 +25,9 @@
 
 .grid-box{
     display: grid;
+    font-size: 50px;
+    background: #E2E8F0;
+    border-radius: 5%;
     width: 100px;
     height: 100px;
     justify-content: center;
