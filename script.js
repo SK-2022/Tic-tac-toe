@@ -22,7 +22,7 @@ function createTicTacToeGameboard() {
     }
 
     // Method to display the current state of the gameboard in the
-    //console with a pipe dividing the elements on the board.
+    //CONSOLE with a pipe dividing the elements on the board.
     function displayBoard() {
         for (let i = 0; i < 9; i += 3) {
             console.log(game.board.slice(i, i + 3).join(' | '))
@@ -56,19 +56,31 @@ function createTicTacToeGameboard() {
         return null // There is no winner
     }
 
+    //Code for rendering the board onto the page.
+
+    function renderBoard() {
+        let boardContainer = document.querySelector(".game-grid-container")
+        //Refreshes the container and prevents duplication of player inputs when rendered
+        boardContainer.innerHTML = ""
+        for (let i = 0; i < game.board.length; i++) {
+            let playerInput = game.board[i];
+            let gridInputBox = document.createElement('div')
+            gridInputBox.innerHTML =
+                `<div class="grid-box-${i} grid-box">O</div>`
+            boardContainer.appendChild(gridInputBox)
+        }
+    }
+
     return {
         game,
         displayBoard,
         makeMove,
-        checkWinner
+        checkWinner,
+        renderBoard
     }
 }
 
 const ticTacToeGameboard = createTicTacToeGameboard()
 
-ticTacToeGameboard.makeMove(2, "X")
-ticTacToeGameboard.makeMove(1, "O")
-ticTacToeGameboard.makeMove(4, "O")
-ticTacToeGameboard.makeMove(7, "O")
-ticTacToeGameboard.displayBoard()
-ticTacToeGameboard.checkWinner()
+ticTacToeGameboard.renderBoard()
+
