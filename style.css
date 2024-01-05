@@ -3,12 +3,14 @@
 * {
     box-sizing: border-box;
     font: 62.5%;
+    font-family: 'Delicious Handrawn'
 }
 
 .tic-tac-toe-title{
     display: flex;
     justify-content: center;
     margin-top: 50px ;
+    font-size: 50px;
 }
 
 .grid-container{
@@ -25,8 +27,7 @@
     justify-content: center;
 }
 
-.grid-box{
-    font-family: 'Delicious Handrawn';
+.grid-box{ 
     display: grid;
     font-size: 50px;
     background: #E2E8F0;

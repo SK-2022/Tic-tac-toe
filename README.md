@@ -1,2 +1,2 @@
 # Tic-tac-toe
-A simple tic-tac-toe game made using vanilla JS
+A simple tic-tac-toe game made using vanilla JS, HTML and CSS
