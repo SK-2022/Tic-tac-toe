@@ -13,6 +13,7 @@ const gameBoard = {
     
    
     //Logic for making a move on the board
+    //Make sure a player 1 cannot override player 2's move and vice versa.
     makeMove(index){
         if (this.board[index] === null){
             this.board[index] = this.currentPlayer; // Assigns the index as X if there was nothing in the index
@@ -49,11 +50,17 @@ const gameBoard = {
             if(ValueA && ValueA === ValueB && ValueA === ValueC){ //Checks if all the positions are filled with the same X or O and make sure its not null.
                 console.log(`${ValueA} is the winner!`)
                 this.resetBoard() //Reset the board when the winner is found
-                return;
+                return;//This is added to STOP the ENTIRE function. 'Break' would be for stopping the current iteration of the loop but allow the function to continue executing
             }
         }
+        
+        //Checks if every cell is NOT null(empty) and resets the board after a tie is logged on the console.
+        if(this.board.every(cell => cell !== null)) {
+            console.log("It's a tie!")
+            this.resetBoard();
+        }
       } 
-        //If so, then declare a TIE, and reset the game. 
+    
 };
 
 //DOM Game
