@@ -77,6 +77,7 @@ const gameBoard = {
         document.querySelectorAll('.grid-box').forEach(gridbox => {
             gridbox.textContent = '';
             gridbox.classList.remove('taken');  //Removes the taken class list to allow players to make moves again
+            gridbox.disabled = false    //Makes it so the buttons are clickable again
         });
         document.getElementById('message-box').textContent = ''
         this.currentPlayer = 'X'    //Made to ensure X always starts.
@@ -86,20 +87,20 @@ const gameBoard = {
    
     //Logic for making a move on the board
     //Make sure a player 1 cannot override player 2's move and vice versa.
-    makeMove(index, cell){
+    makeMove(index, gridbox){
         if (this.board[index] === null){
             this.board[index] = this.currentPlayer; // Assigns the index as X if there was nothing in the index
-            cell.textContent = this.currentPlayer
-            cell.classList.add('taken')
+            gridbox.textContent = this.currentPlayer
+            gridbox.classList.add('taken')
             // Switch Players
             this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X'; 
         } 
         this.checkWinner()
     },
 
-  //Prints the board on the console 
+  //Prints a message in the message box 
   printMessage(message) {
-    document.getElementById('message-box') = message;
+    document.getElementById('message-box').textContent = message;
 },
 
   //All the winning combos
@@ -123,7 +124,7 @@ const gameBoard = {
             
             if(ValueA && ValueA === ValueB && ValueA === ValueC){ //Checks if all the positions are filled with the same X or O and make sure its not null.
                 this.printMessage(`${ValueA} is the winner!`)
-                this.resetBoard() //Reset the board when the winner is found
+                this.disableBoard()
                 return;//This is added to STOP the ENTIRE function. 'Break' would be for stopping the current iteration of the loop but allow the function to continue executing
             }
         }
@@ -131,11 +132,30 @@ const gameBoard = {
         //Checks if every cell is NOT null(empty) and resets the board after a tie is logged on the console.
         if(this.board.every(cell => cell !== null)) {
             this.printMessage("It's a tie!")
-            this.resetBoard();
         }
-      } 
+      }, 
     
+      //Disables the board when the game is over
+
+      disableBoard() {
+        document.querySelectorAll('.grid-box').forEach(gridbox => {
+            gridbox.classList.add('taken'); 
+            gridbox.disabled = true
+        }
+     )}
+
+
 };
 
-//DOM Setup
-
+//DOM Setup - Uses an IIFE to initialize the game once the page loads giving everything its functionality and being encapsulated at the same time free from modification from the outside world
+(function initializeGame() {
+    const gridboxes = document.querySelectorAll('.grid-box');
+    gridboxes.forEach(gridbox => {
+        gridbox.addEventListener('click', () => {
+            const index = gridbox.getAttribute('data-index');
+            gameBoard.makeMove(Number(index), gridbox);
+        })
+     })
+    const resetButton = document.querySelector('.reset-btn');
+    resetButton.addEventListener('click', () => gameBoard.resetBoard());
+})();

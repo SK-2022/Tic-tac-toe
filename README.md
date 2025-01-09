@@ -7,6 +7,6 @@ Additional features to be added:
 
 - The ability to play with a CPU
 
-- The ability to restart the game
+- The ability to restart the game - January 9th 2024 Update
 
 -The ability to add the names of the players
