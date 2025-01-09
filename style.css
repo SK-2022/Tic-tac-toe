@@ -10,7 +10,19 @@
     display: flex;
     justify-content: center;
     margin-top: 50px ;
-    font-size: 50px;
+    font-size: 65px;
+}
+
+.game-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.message-box{
+    display: flex;
+    justify-content:center ;
+    padding-top: 50px;
+    font-size: 40px;
 }
 
 .game-grid-container{
@@ -32,10 +44,15 @@
     font-size: 50px;
     background: #E2E8F0;
     border-radius: 5%;
+    border: none;
     width: 100px;
     height: 100px;
     justify-content: center;
     align-items: center;
+}
+
+.grid-box.taken {
+    cursor: not-allowed;
 }
 
 .grid-box-0{
