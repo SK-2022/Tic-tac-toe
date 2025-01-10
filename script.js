@@ -79,7 +79,9 @@ const gameBoard = {
             gridbox.classList.remove('taken');  //Removes the taken class list to allow players to make moves again
             gridbox.disabled = false    //Makes it so the buttons are clickable again
         });
-        document.getElementById('message-box').textContent = ''
+        document.getElementById('message-box').textContent = 'Player One Starts'
+        document.querySelector('.player-two-container').classList.remove('selected-player')
+        document.querySelector('.player-one-container').classList.remove('selected-player')
         this.currentPlayer = 'X'    //Made to ensure X always starts.
 
     },
@@ -88,6 +90,9 @@ const gameBoard = {
     //Logic for making a move on the board
     //Make sure a player 1 cannot override player 2's move and vice versa.
     makeMove(index, gridbox){
+        const playerTwo = document.querySelector('.player-two-container')
+        const playerOne = document.querySelector('.player-one-container')
+
         if (this.board[index] === null){
             this.board[index] = this.currentPlayer; // Assigns the index as X if there was nothing in the index
             gridbox.textContent = this.currentPlayer
@@ -95,6 +100,16 @@ const gameBoard = {
             // Switch Players
             this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X'; 
         } 
+
+        if(this.currentPlayer === 'O') {
+            playerOne.classList.remove('selected-player')
+            playerTwo.classList.add('selected-player')
+        } else if(this.currentPlayer === 'X' ) {
+            playerOne.classList.add('selected-player')
+            playerTwo.classList.remove('selected-player')
+        }
+
+        document.getElementById('message-box').textContent = ''
         this.checkWinner()
     },
 
@@ -121,9 +136,9 @@ const gameBoard = {
       checkWinner() {
         for(const [a, b, c] of this.winningCombinations) { //iterates over the indices in winning combos
             const [ValueA, ValueB, ValueC] = [this.board[a], this.board[b], this.board[c]] //Using destructing to assign the current values on gameboard indices a, b and c to ValueA, ValueB and ValueC respectively.
-            
+
             if(ValueA && ValueA === ValueB && ValueA === ValueC){ //Checks if all the positions are filled with the same X or O and make sure its not null.
-                this.printMessage(`${ValueA} is the winner!`)
+                this.printMessage(`Player ${ValueA} wins!`)
                 this.disableBoard()
                 return;//This is added to STOP the ENTIRE function. 'Break' would be for stopping the current iteration of the loop but allow the function to continue executing
             }
