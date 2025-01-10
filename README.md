@@ -9,4 +9,6 @@ Additional features to be added:
 
 - The ability to restart the game - January 9th 2024 Update
 
--The ability to add the names of the players
+-Have a counter for the score of players.
+
+-Display for the current player. Names will not be used. Simply using Player One and Player Two monikers will be enough
